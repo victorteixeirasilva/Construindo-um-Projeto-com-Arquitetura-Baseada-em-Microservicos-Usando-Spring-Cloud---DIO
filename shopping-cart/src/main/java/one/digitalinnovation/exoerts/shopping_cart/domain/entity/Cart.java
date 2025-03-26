@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,6 +20,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private List<Item> items;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<Item> items  = new ArrayList<>();
 
 }
