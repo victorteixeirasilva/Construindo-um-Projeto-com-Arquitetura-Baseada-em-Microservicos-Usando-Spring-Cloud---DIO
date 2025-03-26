@@ -36,4 +36,10 @@ public class ProductService {
 
         return repository.findAll();
     }
+
+    public Product getById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Produto não encontrado!"));
+    }
 }

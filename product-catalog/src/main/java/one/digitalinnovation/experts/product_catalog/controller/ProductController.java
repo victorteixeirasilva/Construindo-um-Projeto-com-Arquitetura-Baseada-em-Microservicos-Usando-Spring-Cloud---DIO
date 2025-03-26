@@ -37,10 +37,23 @@ public class ProductController {
 
     @Operation(summary = "Recuperar todos os produtos", description = "Retorna uma lista de todos os produtos criados")
     @GetMapping
-    public ResponseEntity getAll() throws Throwable {
+    public ResponseEntity getAll() {
         try {
             return ResponseEntity.ok(service.getAll());
         } catch (UnsupportedOperationException e) {
+            // Criar um objeto que contenha a mensagem da exceção
+            var errorResponseDTO = new ErrorResponseDTO(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDTO);
+        }
+
+    }
+
+    @Operation(summary = "Recuperar um os produto", description = "Retorna o produto indicado pelo id informado")
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.getById(id));
+        } catch (Exception e) {
             // Criar um objeto que contenha a mensagem da exceção
             var errorResponseDTO = new ErrorResponseDTO(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDTO);
