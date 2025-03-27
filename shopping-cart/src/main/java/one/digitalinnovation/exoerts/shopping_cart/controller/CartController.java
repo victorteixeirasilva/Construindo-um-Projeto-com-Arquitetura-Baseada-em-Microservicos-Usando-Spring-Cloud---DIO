@@ -55,13 +55,29 @@ public class CartController {
 
     @Operation(
             summary =
-                    "Adicionar um item um novo Carrinho",
+                    "Procurando um Carrinho por Id",
             description =
-                    "Retorna um carrinho com seu item")
+                    "Retorna um carrinho com todos os seus itens")
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable Integer id){
         try {
             return ResponseEntity.ok(service.findById(id));
+        } catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponseDTO(e.getMessage()));
+        }
+    }
+
+    @Operation(
+            summary =
+                    "Deletar um Carrinho por Id",
+            description =
+                    "Retorna o carrinho que foi deletado")
+    @DeleteMapping("/{id}")
+    public ResponseEntity clear(@PathVariable Integer id){
+        try {
+            return ResponseEntity.ok(service.delete(id));
         } catch (Exception e){
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)

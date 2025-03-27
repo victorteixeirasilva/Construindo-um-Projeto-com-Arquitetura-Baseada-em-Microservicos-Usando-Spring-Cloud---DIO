@@ -75,4 +75,11 @@ public class CartService {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Carrinho não encontrado!"));
     }
+
+    public String delete(Integer id) {
+        Cart cart = repository.findById(id).orElseThrow(() -> new RuntimeException("Carrinho não encontrado"));
+        repository.delete(cart);
+
+        return "Carrinho deletado";
+    }
 }
