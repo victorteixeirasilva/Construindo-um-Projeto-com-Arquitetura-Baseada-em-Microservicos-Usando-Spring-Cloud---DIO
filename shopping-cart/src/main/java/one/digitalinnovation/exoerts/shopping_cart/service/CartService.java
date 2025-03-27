@@ -29,6 +29,22 @@ public class CartService {
         item.setProductId(itemId);
         item.setAmount(itemRequestDTO.amount());
 
+
+        for (Item itemBd: cart.getItems()) {
+            long idLong = itemId.getProductId();
+            if (itemBd.getProductId().getProductId() == idLong){
+                for (int i = 0; i < cart.getItems().size(); i++){
+                    if (cart.getItems().get(i).getProductId().getProductId() == idLong) {
+                        cart.getItems().get(i)
+                                .setAmount(item.getAmount() + itemBd.getAmount());
+                    }
+                }
+
+                item.setCart(cart);
+                return repository.save(cart);
+            }
+        }
+
         // Atualizar a relação bidirecional
         item.setCart(cart);
 
