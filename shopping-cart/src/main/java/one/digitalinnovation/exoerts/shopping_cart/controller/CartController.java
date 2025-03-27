@@ -53,6 +53,22 @@ public class CartController {
         }
     }
 
+    @Operation(
+            summary =
+                    "Adicionar um item um novo Carrinho",
+            description =
+                    "Retorna um carrinho com seu item")
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Integer id){
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponseDTO(e.getMessage()));
+        }
+    }
+
 
 
 

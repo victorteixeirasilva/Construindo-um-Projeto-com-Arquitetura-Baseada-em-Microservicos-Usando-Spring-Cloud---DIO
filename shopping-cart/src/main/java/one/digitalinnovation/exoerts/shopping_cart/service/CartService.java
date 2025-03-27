@@ -71,4 +71,8 @@ public class CartService {
         return repository.save(cart);
     }
 
+    public Cart findById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Carrinho não encontrado!"));
+    }
 }
