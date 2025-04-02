@@ -35,7 +35,7 @@ public class ProductController {
         }
     }
 
-    @Operation(summary = "Recuperar todos os produtos", description = "Retorna uma lista de todos os produtos criados")
+    @Operation(summary = "Criar novo Produto", description = "Retorna o Produto criado")
     @GetMapping
     public ResponseEntity getAll() {
         try {
