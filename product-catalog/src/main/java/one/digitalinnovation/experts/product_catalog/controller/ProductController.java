@@ -25,40 +25,20 @@ public class ProductController {
 
     @Operation(summary = "Criar novo Produto", description = "Retorna o Produto criado")
     @PostMapping
-    public ResponseEntity create(@RequestBody ProductRequestDTO productDTO){
-        try {
-            return ResponseEntity.ok(service.create(productDTO));
-        } catch (Exception e) {
-            // Criar um objeto que contenha a mensagem da exceção
-            var errorResponseDTO = new ErrorResponseDTO(e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponseDTO);
-        }
+    public Product create(@RequestBody ProductRequestDTO productDTO){
+        return service.create(productDTO);
     }
 
     @Operation(summary = "Criar novo Produto", description = "Retorna o Produto criado")
     @GetMapping
-    public ResponseEntity getAll() {
-        try {
-            return ResponseEntity.ok(service.getAll());
-        } catch (UnsupportedOperationException e) {
-            // Criar um objeto que contenha a mensagem da exceção
-            var errorResponseDTO = new ErrorResponseDTO(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDTO);
-        }
-
+    public List<Product> getAll() {
+        return service.getAll();
     }
 
     @Operation(summary = "Recuperar um os produto", description = "Retorna o produto indicado pelo id informado")
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(service.getById(id));
-        } catch (Exception e) {
-            // Criar um objeto que contenha a mensagem da exceção
-            var errorResponseDTO = new ErrorResponseDTO(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDTO);
-        }
-
+    public Product getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
 }
