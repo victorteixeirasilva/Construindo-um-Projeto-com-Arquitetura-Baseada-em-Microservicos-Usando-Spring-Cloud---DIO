@@ -32,9 +32,10 @@ public class CartService {
                                 "Carrinho informado não encontrado!"
                         ));
 
-        ResponseEntity product = productCatalogServiceClient.getById(itemRequestDTO.productId());
 
-        if (product.getStatusCode().is2xxSuccessful()){
+        Product product = productCatalogServiceClient.getById(itemRequestDTO.productId());
+
+        if (product != null){
             var item = new Item();
             ItemId itemId = new ItemId(itemRequestDTO.productId(), cart.getId());
             item.setProductId(itemId);
@@ -62,14 +63,14 @@ public class CartService {
             cart.getItems().add(item);
             return repository.save(cart);
         } else {
-            throw new ProductCatalogNotFoundProductException();
+            throw new ProductCatalogNotFoundProductException("Não foi possível encontrar o produto em product-catalog");
         }
     }
 
     public Cart addItem(ItemRequestDTO itemRequestDTO) {
-        ResponseEntity product = productCatalogServiceClient.getById(itemRequestDTO.productId());
+        Product product = productCatalogServiceClient.getById(itemRequestDTO.productId());
 
-        if (product.getStatusCode().is2xxSuccessful()) {
+        if (product != null) {
 
             // Cria um novo Cart
             Cart cart = new Cart();
